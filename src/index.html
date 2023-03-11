@@ -8,7 +8,18 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <header class="searchBar">
+      <form class="searchBar__submitForm">
+        <input
+          type="input"
+          class="searchBar__input"
+          placeholder="Search images..."
+        />
+        <button type="submit" class="searchBar__submit">Search</button>
+      </form>
+    </header>
+    <section class="elements">
+      <ul class="elements__list"></ul>
+    </section>
   </body>
 </html>
