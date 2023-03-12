@@ -1,27 +1,52 @@
 import { getProducts } from './js/products';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { Notify } from 'notiflix';
 
-const searchFormRefs = document.querySelector('#search-form');
-const galleryRefs = document.querySelector('.gallery');
+const searchFormRef = document.querySelector('#search-form');
+const galleryRef = document.querySelector('.gallery');
+const loadMoreBtnRef = document.querySelector('.load-more');
 
-searchFormRefs.addEventListener('submit', getAllProducts);
-
-async function getAllProducts(e) {
-  e.preventDefault();
-  const {
-    data: { hits },
-  } = await getProducts('Hallo');
-  console.log(hits);
-  render(hits);
-}
 let lightBox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
   scrollZoom: false,
 });
 
-function render(hits) {
+let page = 1;
+let totalHits;
+loadMoreBtnRef.style.display = 'none';
+
+loadMoreBtnRef.addEventListener('click', showMoreImage);
+searchFormRef.addEventListener('submit', getAllProducts);
+
+function getAllProducts(e) {
+  e.preventDefault();
+  page = 1;
+  clearGallery();
+  searchRequest();
+}
+
+async function searchRequest() {
+  const searchTopic = searchFormRef.elements[0].value.trim();
+  const { data } = await getProducts(searchTopic, page);
+  const hits = data.hits;
+  totalHits = data.totalHits;
+  if (hits.length === 0) {
+    loadMoreBtnRef.style.display = 'none';
+    return Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  }
+  Notify.success(`Hooray! We found ${totalHits} images`);
+  loadMoreBtnRef.style.display = 'block';
+  renderImage(hits);
+}
+
+function renderImage(hits) {
+  console.log('hits:', hits);
+
   const markup = hits
     .map(
       ({
@@ -53,6 +78,15 @@ function render(hits) {
       }
     )
     .join('');
-  galleryRefs.insertAdjacentHTML('beforeend', markup);
+  galleryRef.insertAdjacentHTML('beforeend', markup);
   lightBox.refresh();
+}
+
+function clearGallery() {
+  galleryRef.innerHTML = '';
+}
+
+function showMoreImage() {
+  page += 1;
+  searchRequest();
 }
