@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <header class="searchBar">
-      <form class="searchBar__submitForm">
-        <input
-          type="input"
-          class="searchBar__input"
-          placeholder="Search images..."
-        />
-        <button type="submit" class="searchBar__submit">Search</button>
-      </form>
-    </header>
-    <section class="elements">
-      <ul class="elements__list"></ul>
-    </section>
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+        class="search-form__input"
+      />
+      <button type="submit" class="search-form__btn">Search</button>
+    </form>
+
+    <section class="gallery"></section>
+
+    <script type="module" src="./index.js"></script>
   </body>
 </html>

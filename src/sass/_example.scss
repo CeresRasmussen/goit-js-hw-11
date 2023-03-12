@@ -1,16 +1,17 @@
 body {
-  background-image: linear-gradient(to right, #434343 0%, black 100%);
+  // background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+li {
+  list-style: none;
 }
 
-.searchBar {
+.search-form {
   height: 60px;
   padding: 10px;
   background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
-  &__submitForm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__input {
     height: 40px;
@@ -18,7 +19,16 @@ body {
     width: clamp(250px, 50%, 500px);
   }
 
-  &__submit {
+  &__btn {
     height: 40px;
   }
+}
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  // a {
+  //   width: 320px;
+  //   height: 240px;
+  // }
 }
