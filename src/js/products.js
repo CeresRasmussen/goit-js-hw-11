@@ -1,6 +1,5 @@
 import axios from 'axios';
-const KEY = '33498062-ee2b42b41cbde2a2a11e8f88d';
-// не мій апішний ключ
+const KEY = '34348838-2e9a9922ce2037481b30b9efd';
 export async function getProducts(search, page) {
   console.log('search:', search);
 
@@ -10,9 +9,3 @@ export async function getProducts(search, page) {
 
   return products;
 }
-
-// if (!searchTopic) {
-//   return Notify.failure(
-//     'Sorry, You have not entered what you want to search for. Please try again.'
-//   );
-// }
