@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+const KEY = '34348838-2e9a9922ce2037481b30b9efd';
 export async function getProducts(search, page) {
   console.log('search:', search);
 
