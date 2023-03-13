@@ -10,3 +10,9 @@ export async function getProducts(search, page) {
 
   return products;
 }
+
+// if (!searchTopic) {
+//   return Notify.failure(
+//     'Sorry, You have not entered what you want to search for. Please try again.'
+//   );
+// }

@@ -21,11 +21,18 @@ loadMoreBtnRef.style.display = 'none';
 loadMoreBtnRef.addEventListener('click', showMoreImage);
 searchFormRef.addEventListener('submit', getAllProducts);
 
-function getAllProducts(e) {
+async function getAllProducts(e) {
   e.preventDefault();
   page = 1;
   clearGallery();
-  searchRequest();
+  if (!searchFormRef.elements[0].value.trim()) {
+    return Notify.failure(
+      'Sorry, You have not entered what you want to search for. Please try again.'
+    );
+  }
+  await searchRequest();
+  notification();
+  loadMoreBtnRef.style.display = 'block';
 }
 
 async function searchRequest() {
@@ -33,14 +40,6 @@ async function searchRequest() {
   const { data } = await getProducts(searchTopic, page);
   const hits = data.hits;
   totalHits = data.totalHits;
-  if (hits.length === 0) {
-    loadMoreBtnRef.style.display = 'none';
-    return Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  }
-  Notify.success(`Hooray! We found ${totalHits} images`);
-  loadMoreBtnRef.style.display = 'block';
   renderImage(hits);
 }
 
@@ -59,7 +58,7 @@ function renderImage(hits) {
         downloads,
       }) => {
         return `<div class="photo-card">
-  <a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" width=320 height=240/></a>
+  <a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
   <div class="info">
   <p class="info-item">Likes: 
     <b>${likes}</b>
@@ -86,7 +85,29 @@ function clearGallery() {
   galleryRef.innerHTML = '';
 }
 
-function showMoreImage() {
+async function showMoreImage() {
   page += 1;
-  searchRequest();
+  await searchRequest();
+  await ifThereAreNoMoreImgNotification();
+}
+
+function notification() {
+  console.log('totalHits:', totalHits);
+  if (!totalHits) {
+    loadMoreBtnRef.style.display = 'none';
+    return Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  }
+  Notify.success(`Hooray! We found ${totalHits} images`);
+}
+
+async function ifThereAreNoMoreImgNotification() {
+  console.log([galleryRef][0].childElementCount);
+  if ([galleryRef][0].childElementCount >= totalHits) {
+    loadMoreBtnRef.style.display = 'none';
+    return Notify.failure(
+      "We're sorry, but you've reached the end of search results."
+    );
+  }
 }
