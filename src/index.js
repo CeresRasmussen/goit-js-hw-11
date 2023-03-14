@@ -31,13 +31,18 @@ async function getAllProducts(e) {
     );
   }
   await searchRequest();
-  notification();
+  console.log([galleryRef][0].childElementCount === totalHits);
+  if ([galleryRef][0].childElementCount >= totalHits) {
+    return (loadMoreBtnRef.style.display = 'none');
+  }
   loadMoreBtnRef.style.display = 'block';
+  notification();
 }
 
 async function searchRequest() {
   const searchTopic = searchFormRef.elements[0].value.trim();
   const { data } = await getProducts(searchTopic, page);
+
   const hits = data.hits;
   totalHits = data.totalHits;
   renderImage(hits);
@@ -103,7 +108,6 @@ function notification() {
 }
 
 async function ifThereAreNoMoreImgNotification() {
-  console.log([galleryRef][0].childElementCount);
   if ([galleryRef][0].childElementCount >= totalHits) {
     loadMoreBtnRef.style.display = 'none';
     return Notify.failure(
