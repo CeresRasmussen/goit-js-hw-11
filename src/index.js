@@ -7,7 +7,6 @@ import { Notify } from 'notiflix';
 const searchFormRef = document.querySelector('#search-form');
 const galleryRef = document.querySelector('.gallery');
 const loadMoreBtnRef = document.querySelector('.load-more');
-// const { height: cardHeight } = document.querySelector('.gallery');
 
 let lightBox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -87,11 +86,13 @@ function renderImage(hits) {
     .join('');
   galleryRef.insertAdjacentHTML('beforeend', markup);
   lightBox.refresh();
-
-  // window.scrollBy({
-  //   top: cardHeight * 2,
-  //   behavior: 'smooth',
-  // });
+  if (page === 1) {
+    return;
+  }
+  window.scrollBy({
+    top: 550,
+    behavior: 'smooth',
+  });
 }
 
 function clearGallery() {
@@ -129,9 +130,6 @@ async function ifThereAreNoMoreImgNotification() {
 const infiniteScrollCallback = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && searchTopic !== '') {
-      if (page === 0) {
-        return;
-      }
       showMoreImage();
     }
   });
