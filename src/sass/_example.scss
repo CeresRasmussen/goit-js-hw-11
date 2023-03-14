@@ -91,18 +91,3 @@ li {
     align-items: center;
   }
 }
-
-.load-more {
-  width: clamp(120px, 50%, 240px);
-  margin-bottom: 25px;
-  background-color: #c0d8c0;
-  cursor: pointer;
-  color: #1a1818;
-  border: 1px solid #1a1818;
-  border-radius: 6px;
-  padding: 10px;
-  position: relative;
-  bottom: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-}

@@ -17,6 +17,7 @@ let lightBox = new SimpleLightbox('.gallery a', {
 let page = 1;
 let totalHits;
 loadMoreBtnRef.style.display = 'none';
+let searchTopic;
 
 loadMoreBtnRef.addEventListener('click', showMoreImage);
 searchFormRef.addEventListener('submit', getAllProducts);
@@ -33,6 +34,7 @@ async function getAllProducts(e) {
   await searchRequest();
   console.log([galleryRef][0].childElementCount === totalHits);
   if ([galleryRef][0].childElementCount >= totalHits) {
+    notification();
     return (loadMoreBtnRef.style.display = 'none');
   }
   loadMoreBtnRef.style.display = 'block';
@@ -115,3 +117,22 @@ async function ifThereAreNoMoreImgNotification() {
     );
   }
 }
+
+// InfiniteScroll
+
+const infiniteScrollCallback = entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && searchTopic !== '') {
+      if (page === 0) {
+        return;
+      }
+      showMoreImage();
+    }
+  });
+};
+
+const infiniteScroll = new IntersectionObserver(infiniteScrollCallback, {
+  rootMargin: '200px',
+  history: false,
+});
+infiniteScroll.observe(loadMoreBtnRef);
