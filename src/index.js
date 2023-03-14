@@ -89,10 +89,10 @@ function renderImage(hits) {
   if (page === 1) {
     return;
   }
-  window.scrollBy({
-    top: 550,
-    behavior: 'smooth',
-  });
+  // window.scrollBy({
+  //   top: 550,
+  //   behavior: 'smooth',
+  // });
 }
 
 function clearGallery() {

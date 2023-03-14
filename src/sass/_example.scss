@@ -23,7 +23,6 @@ li {
   align-items: center;
   z-index: 2;
   border-bottom: 1px solid #242526;
-  box-shadow: 0px 0px 15px 5px rgb(0, 0, 0);
 
   &__input {
     border-radius: 10px;
@@ -57,7 +56,7 @@ li {
   }
 }
 .gallery {
-  padding: 10px 10px 0 10px;
+  padding: 15px 10px 0 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -76,8 +75,8 @@ li {
 
   img {
     object-fit: cover;
-    width: 320px;
-    height: 240px;
+    width: 360px;
+    height: 235px;
   }
 
   .info {
