@@ -7,6 +7,7 @@ import { Notify } from 'notiflix';
 const searchFormRef = document.querySelector('#search-form');
 const galleryRef = document.querySelector('.gallery');
 const loadMoreBtnRef = document.querySelector('.load-more');
+// const { height: cardHeight } = document.querySelector('.gallery');
 
 let lightBox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
@@ -86,6 +87,11 @@ function renderImage(hits) {
     .join('');
   galleryRef.insertAdjacentHTML('beforeend', markup);
   lightBox.refresh();
+
+  // window.scrollBy({
+  //   top: cardHeight * 2,
+  //   behavior: 'smooth',
+  // });
 }
 
 function clearGallery() {
