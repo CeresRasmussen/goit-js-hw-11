@@ -32,7 +32,6 @@ async function getAllProducts(e) {
     );
   }
   await searchRequest();
-  console.log([galleryRef][0].childElementCount === totalHits);
   if ([galleryRef][0].childElementCount >= totalHits) {
     notification();
     return (loadMoreBtnRef.style.display = 'none');
@@ -51,8 +50,6 @@ async function searchRequest() {
 }
 
 function renderImage(hits) {
-  console.log('hits:', hits);
-
   const markup = hits
     .map(
       ({
@@ -111,7 +108,6 @@ async function showMoreImage() {
 }
 
 function notification() {
-  console.log('totalHits:', totalHits);
   if (!totalHits) {
     loadMoreBtnRef.style.display = 'none';
     return Notify.failure(
