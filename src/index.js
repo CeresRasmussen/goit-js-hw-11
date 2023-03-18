@@ -89,10 +89,15 @@ function renderImage(hits) {
   if (page === 1) {
     return;
   }
-  // window.scrollBy({
-  //   top: 550,
-  //   behavior: 'smooth',
-  // });
+
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
 
 function clearGallery() {
@@ -136,7 +141,7 @@ const infiniteScrollCallback = entries => {
 };
 
 const infiniteScroll = new IntersectionObserver(infiniteScrollCallback, {
-  rootMargin: '200px',
+  rootMargin: '400px',
   history: false,
 });
 infiniteScroll.observe(loadMoreBtnRef);
